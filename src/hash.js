@@ -23,14 +23,7 @@ export function sha(message) {
 
 /** @param {Buffer|string} message */
 export function shaBuffer(message) {
-    var data = typeof message === 'string' ? Buffer.from(message, 'utf8') : message;
-    return createHash('sha256').update(data).digest();
-}
-
-/** @param {Buffer|string} message */
-export function sha512Buffer(message) {
-    var data = typeof message === 'string' ? Buffer.from(message, 'utf8') : message;
-    return createHash('sha512').update(data).digest();
+    return createHash('sha256').update(message).digest();
 }
 
 /**
@@ -40,6 +33,7 @@ export function sha512Buffer(message) {
 export function hmac(message, secret) {
     return hmacBuffer(message, secret).toString('base64');
 }
+
 /**
  * @param {Buffer | string} message
  * @param {Buffer | string} secret

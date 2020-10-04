@@ -1,5 +1,5 @@
-import { randomBytes } from 'crypto';
 import { shaBuffer } from './hash';
+import { randomBytes } from './utils';
 
 export default class Guid {
     /** @param {Uint8Array} data */
