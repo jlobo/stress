@@ -2,6 +2,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
     //plugins: [ new BundleAnalyzerPlugin() ],
+    //mode: 'development',
     mode: 'production',
     entry: './src/index.js',
     output: {
