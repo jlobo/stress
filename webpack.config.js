@@ -4,7 +4,10 @@ module.exports = {
     //plugins: [ new BundleAnalyzerPlugin() ],
     //mode: 'development',
     mode: 'production',
-    entry: './src/index.js',
+    entry: {
+        multipleDAuth: './src/multipleDAuthFakeTest.js',
+        singleDAuth: './src/singleDAuthFakeTest.js',
+    },
     output: {
         path: __dirname + '/dist',
         filename: 'test.[name].js',

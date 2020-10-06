@@ -5,6 +5,9 @@
   "main": "test.js",
   "sideEffects": false,
   "scripts": {
+    "start": "docker run --rm -i tideorg/stress run test.multipleDAuth.js",
+    "build": "webpack && docker build -t tideorg/stress .",
+    "push": "npm run build && docker push tideorg/stress",
     "test": "npx webpack && k6 run ./dist/test.main.js",
     "test-watch": "nodemon --watch src -x \"npm run test 2>&1 | grep level=info \""
   },
