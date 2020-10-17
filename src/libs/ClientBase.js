@@ -49,8 +49,9 @@ export function urlEncode(data) {
 
 export class Resp {
     get status() { return this.resp.status; } 
-    get isOk() { return this.resp.status != 200; } 
+    get isOk() { return this.resp.status == 200; } 
     get error() { return this.resp.error; } 
+    get url() { return this.resp.url; } 
     
     get text() { 
         return typeof this.resp.body === 'string' ? this.resp.body

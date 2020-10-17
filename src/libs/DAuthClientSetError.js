@@ -15,11 +15,11 @@ export default class DAuthClientSetError {
             url: `${url}/cmk/prism/${user}/${urlEncode(randomBytes(64))}` }));
         
         const resps = http.batch(reqs).map(res => new Resp(res));
-        const erros = resps.filter(resp => !resp.isOk);
+        const erros = resps.filter(resp => !(resp.status == 400 || resp.isOk));
         if (erros.length > 0)
             return Error(erros[0].error);
 
-        return resps.map(resp => resp.text);
+        return resps.some(resp => resp.status == 400);
     }
 
     /** @param {string} user */
@@ -30,10 +30,10 @@ export default class DAuthClientSetError {
         }));
 
         const resps = http.batch(reqs).map(res => new Resp(res));
-        const erros = resps.filter(resp => !resp.isOk);
+        const erros = resps.filter(resp => !(resp.status == 400 || resp.isOk));
         if (erros.length > 0)
             return Error(erros[0].error);
 
-        return resps.map(resp => resp.text);
+        return resps.some(resp => resp.status == 400);
     }
 }
