@@ -30,10 +30,10 @@ export default class DAuthClientSetError {
         }));
 
         const resps = http.batch(reqs).map(res => new Resp(res));
-        const erros = resps.filter(resp => !(resp.status == 400 || resp.isOk));
+        const erros = resps.filter(resp => !(resp.status == 401 || resp.status == 418 || resp.isOk));
         if (erros.length > 0)
             return Error(erros[0].error);
 
-        return resps.some(resp => resp.status == 400);
+        return resps.some(resp => resp.status == 401);
     }
 }

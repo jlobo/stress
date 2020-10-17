@@ -8,7 +8,7 @@
     "start": "docker run --rm -i tideorg/orkstress run test.multipleDAuth.js",
     "build": "webpack && docker build -t tideorg/orkstress .",
     "push": "npm run build && docker push tideorg/orkstress",
-    "test": "npx webpack && k6 run ./dist/test.multipleDAuth.js",
+    "test": "npx webpack && k6 run -e DEV=true ./dist/test.multipleDAuth.js",
     "test-watch": "nodemon --watch src -x \"npm run test 2>&1 | grep level=info \""
   },
   "author": "",
