@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-json-cnf
+data:
+  config.json: |
+    {
+      "stages": [
+        {
+          "duration": "1m",
+          "target": 10
+        },
+        {
+          "duration": "1m",
+          "target": 30
+        },
+        {
+          "duration": "1m",
+          "target": 0
+        }
+      ],
+      "noConnectionReuse": true
+    }    

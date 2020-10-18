@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: stress-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: stress
+        image: tideorg/orkstress:latest
+        imagePullPolicy: Always
+        command: [ "k6", "run", "test.multipleDAuth.js" ]
+        volumeMounts:
+        - mountPath: /root/.config/loadimpact/k6
+          name: stress-config
+      restartPolicy: Never
+      volumes:
+          - name: stress-config
+            configMap:
+                  name: config-json-cnf
+                  items:
+                      - key: config.json
+                        path: config.json
+  backoffLimit: 2
