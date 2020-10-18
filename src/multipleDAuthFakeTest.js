@@ -3,24 +3,42 @@ import DAuthClientSetError from './libs/DAuthClientSetError';
 import { Counter, Rate } from "k6/metrics";
 import { check, sleep } from "k6";
 
-let ErrorCount = new Counter("errors");
-let ErrorRate = new Rate("error_rate");
+let errorTotal = new Counter("error_total");
+let rateTotal = new Rate("rate_total");
+let errorPrism = new Counter("error_prism");
+let ratePrism = new Rate("rate_prism");
+let errorCMK = new Counter("error_cmk");
+let rateCMK = new Rate("rate_cmk");
 
 export default function() {
     var client = new DAuthClientSetError(config.urls)
 
-    const r1 = client.applyPrism(config.user);
-    const r2 = client.signIn(config.user);
+    const rPrm = client.applyPrism(config.user);
+    const rCmk = client.signIn(config.user);
 
-    let success = check([r1, r2], {
-      "200 or 400": ([r1, r2]) => typeof r1 === 'boolean' && typeof r2 === 'boolean'
+    check([rPrm, rCmk], {
+      "Prism": ([r1]) => typeof r1 === 'boolean',
+      "CMK": ([, r2]) => typeof r2 === 'boolean'
     });
         
-    if (success) {
-        ErrorCount.add(1);
-        ErrorRate.add(true);
+    if (typeof rPrm !== 'boolean') {
+        errorPrism.add(1);
+        ratePrism.add(true);
+        errorTotal.add(1);
+        rateTotal.add(true);
     } else {
-        ErrorRate.add(false);
+        ratePrism.add(false);
+        rateTotal.add(false);
+    }
+        
+    if (typeof rCmk !== 'boolean') {
+        errorCMK.add(1);
+        rateCMK.add(true);
+        errorTotal.add(1);
+        rateTotal.add(true);
+    } else {
+        rateCMK.add(false);
+        rateTotal.add(false);
     }
 
     sleep(0.5);

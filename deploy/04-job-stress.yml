@@ -3,6 +3,7 @@ kind: Job
 metadata:
   name: stress-job
 spec:
+  parallelism: 10
   template:
     spec:
       containers:
@@ -10,6 +11,10 @@ spec:
         image: tideorg/orkstress:latest
         imagePullPolicy: Always
         command: [ "k6", "run", "test.multipleDAuth.js" ]
+        resources:
+          limits:
+            memory: "3Gi"
+            cpu: "500m"
         volumeMounts:
         - mountPath: /root/.config/loadimpact/k6
           name: stress-config
@@ -21,4 +26,3 @@ spec:
                   items:
                       - key: config.json
                         path: config.json
-  backoffLimit: 2
