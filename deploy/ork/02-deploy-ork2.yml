@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ork2-deployment
+  labels:
+    app: ork2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ork2
+  template:
+    metadata:
+      labels:
+        app: ork2
+    spec:
+      containers:
+      - name: ork
+        image: tideorg/ork:dev
+        imagePullPolicy: Always
+        env: 
+        - name: Settings__Features__Memory
+          value: "true"
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        ports:
+          - containerPort: 80
