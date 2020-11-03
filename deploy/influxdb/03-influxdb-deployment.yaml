@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+  labels:
+    app: influxdb-deployment
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - image: influxdb:1.7.4
+        name: influxdb
+        ports:
+          - containerPort: 8086
+        volumeMounts:
+          - mountPath: /etc/influxdb/influxdb.conf
+            name: influxdb-config
+            subPath: influxdb.conf
+            readOnly: true
+        envFrom:
+          - secretRef:
+              name: influxdb-secrets
+      volumes:
+        - name: influxdb-config
+          configMap:
+            name: influxdb-config
