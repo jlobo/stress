@@ -18,7 +18,9 @@ spec:
       - name: ork
         image: tideorg/ork:dev
         imagePullPolicy: Always
-        env: 
+        env:
+        - name: Settings__Features__Metrics
+          value: "true"
         - name: Settings__Features__Memory
           value: "true"
         resources:
@@ -26,4 +28,5 @@ spec:
             memory: "1Gi"
             cpu: "1000m"
         ports:
-          - containerPort: 80
+        - name: web
+          containerPort: 80
