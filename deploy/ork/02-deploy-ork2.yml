@@ -23,6 +23,12 @@ spec:
           value: "true"
         - name: Settings__Features__Memory
           value: "true"
+        - name: Settings__Instance__Username
+          value: "Ork-1"
+        - name: Settings__Instance__SecretKey
+          value: "AhC9OpCHalVMzgDc8LAyky05IKY92xhE2SmmCJ1RgzC0hkgDMkVa8W0cdsB0/I/1hW7D"
+        - name: Settings__Instance__PrivateKey
+          value: "AOb+bNal/0M0bT4jFC0K6+YuEBwwR5nBMaps7kZR64JFKCrU63/BQWasFCgIlgtlSOv5jzQfMjFBfsud/veC0ljtUScANNgwqmitEl6ChDOSyWBzA57sFmWAX2pe8fGR"
         resources:
           limits:
             memory: "1Gi"
