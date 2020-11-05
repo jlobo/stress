@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stress-config-json
+data:
+  config.json: |
+    {
+      "stages": [
+        { "duration": "1m", "target": 200 },
+        { "duration": "9m", "target": 200 },
+        { "duration": "3m", "target": 1000 },
+        { "duration": "7m", "target": 1000 },
+        { "duration": "10m", "target": 0 }
+      ],
+      "noConnectionReuse": true
+    }    

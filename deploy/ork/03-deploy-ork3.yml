@@ -14,6 +14,11 @@ spec:
       labels:
         app: ork3
     spec:
+      tolerations:
+      - key: "scope"
+        operator: "Equal"
+        value: "service"
+        effect: "NoSchedule"
       containers:
       - name: ork
         image: tideorg/ork:dev

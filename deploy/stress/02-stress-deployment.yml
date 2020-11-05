@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stress
+  labels:
+    app: stress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stress
+  template:
+    metadata:
+      labels:
+        app: stress
+    spec:
+      tolerations:
+      - key: "virtual-kubelet.io/provider"
+        operator: "Equal"
+        value: "azure"
+        effect: "NoSchedule"
+      containers:
+      - name: stress
+        image: tideorg/orkstress:latest
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo hello; sleep 10;done"]
+        imagePullPolicy: Always
+        env:
+        - name: K6_INFLUXDB_USERNAME
+          value: "user"
+        - name: K6_INFLUXDB_PASSWORD
+          value: "123456"
+        - name: influxdb
+          value: "http://influxdb-service.default.svc.cluster.local:8086/k6db"
+        resources:
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        volumeMounts:
+        - mountPath: /root/.config/loadimpact/k6
+          name: stress-config
+      volumes:
+          - name: stress-config
+            configMap:
+                  name: stress-config-json
+                  items:
+                      - key: config.json
+                        path: config.json
