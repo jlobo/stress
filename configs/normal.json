@@ -1,0 +1,8 @@
+{
+  "stages": [
+    { "duration": "4m", "target": 1000 },
+    { "duration": "10m", "target": 1000 },
+    { "duration": "1m", "target": 0 }
+  ],
+  "noConnectionReuse": true
+}    

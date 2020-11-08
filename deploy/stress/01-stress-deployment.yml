@@ -5,7 +5,7 @@ metadata:
   labels:
     app: stress
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: stress
@@ -34,15 +34,5 @@ spec:
           value: "http://influxdb-service.default.svc.cluster.local:8086/k6db"
         resources:
           limits:
-            memory: "4Gi"
-            cpu: "2000m"
-        volumeMounts:
-        - mountPath: /root/.config/loadimpact/k6
-          name: stress-config
-      volumes:
-          - name: stress-config
-            configMap:
-                  name: stress-config-json
-                  items:
-                      - key: config.json
-                        path: config.json
+            memory: "3Gi"
+            cpu: "350m"
