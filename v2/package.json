@@ -1,0 +1,18 @@
+{
+  "name": "stress-v2",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules index",
+    "test": "node --experimental-modules child.js --url=http://127.0.0.1:5001/api/public"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "minimist": "^1.2.5",
+    "superagent": "^6.1.0"
+  }
+}
