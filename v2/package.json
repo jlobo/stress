@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-modules index",
+    "start": "node --experimental-modules indexv2",
+    "base": "node --experimental-modules index",
     "test": "node --experimental-modules child.js --url=http://127.0.0.1:5001/api/public"
   },
   "author": "",
