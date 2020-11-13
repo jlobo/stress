@@ -1,12 +1,13 @@
-"use strict";
-import VUser from "./vuser.js";
+import DAuth from "./tests/DAuth.js";
 
-const NUM = 10;
-const CHILD_PROCESSES = 10000;
-const URL = 'http://127.0.0.1:5001/api/public';
+const num = 30;
+var threshold = 3;
+const concurrent = 1;
+var urls = [...Array(threshold)].map((_, i) => "http://localhost:500" + (i + 1));
 
 (async () => {
-  const vuser = new VUser(URL, NUM);
+  const vuser = new DAuth(urls, threshold, num);
+
   vuser.on('successful', (successful, duration, status) =>
     process.stdout.write(`\r\x1b[Kok: ${successful}: ${status} - ${duration}`));
 
@@ -15,8 +16,9 @@ const URL = 'http://127.0.0.1:5001/api/public';
     process.stderr.write(`err: ${errors}: ${duration}\n`);
   });
 
-  const outputs = await Promise.all([...new Array(CHILD_PROCESSES)].map(() => vuser.run()));
+  await vuser.init();
+  const outputs = await Promise.all([...new Array(concurrent)].map(() => vuser.run()));
   const [ok, err] = outputs.reduce(([ok, err], b) => [ok + b.successful, err + b.errors], [0, 0])
 
-  process.stdout.write('\r\x1b[Kall good! ${ok} ok and ${err} with erros\n');
+  process.stdout.write(`\r\x1b[Kawesome ok: ${ok}  erros: ${err}\n`);
 })();

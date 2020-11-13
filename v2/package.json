@@ -3,17 +3,16 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node --experimental-modules indexv2",
-    "base": "node --experimental-modules index",
-    "test": "node --experimental-modules child.js --url=http://127.0.0.1:5001/api/public"
+    "start": "node -r esm indexv2.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "child_process": "^1.0.2",
-    "minimist": "^1.2.5",
-    "superagent": "^6.1.0"
+    "cryptide": "2.0.1-0",
+    "tide-js": "file:../../Tide-Protocol/Tide/Tide.Js"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25"
   }
 }
