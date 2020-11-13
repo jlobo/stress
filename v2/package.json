@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm indexv2.js"
+    "start": "set DEV=true && node -r esm indexv2.js --times=30"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "minimist": "^1.2.5",
     "cryptide": "2.0.1-0",
     "tide-js": "file:../../Tide-Protocol/Tide/Tide.Js"
   },
