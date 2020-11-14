@@ -1,4 +1,4 @@
-import DAuth from "./dauth";
+import DAuth from "./DAuth";
 
 export default class TestIndex {
     static get names() {

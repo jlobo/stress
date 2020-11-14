@@ -1,4 +1,4 @@
-import { CP256Key } from "cryptide";
+import { CP256Key } from "tide-js/node_modules/cryptide";
 import DAuthJwtFlow from "tide-js/src/dauth/DAuthJwtFlow";
 import config from "./config";
 
