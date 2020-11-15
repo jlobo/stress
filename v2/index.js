@@ -6,7 +6,7 @@ const argv = minimist(process.argv.slice(2));
 const name = argv.name || tests.names[0];
 const parallel = argv.parallel || 1;
 const times = argv.times || 1;
-const wait = argv.wait || 10;
+const wait = argv.wait || 0;
 
 (async () => {
   if (argv.h || argv.help) {
