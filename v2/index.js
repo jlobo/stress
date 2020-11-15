@@ -6,9 +6,18 @@ const argv = minimist(process.argv.slice(2));
 const name = argv.name || tests.names[0];
 const parallel = argv.parallel || 1;
 const times = argv.times || 1;
-const wait = argv.wait || 1;
+const wait = argv.wait || 10;
 
 (async () => {
+  if (argv.h || argv.help) {
+    console.log(`Example:`);
+    console.log(`  --name [${tests.names.join('|')}]`);
+    console.log(`  --times 30`);
+    console.log(`  --parallel 3`);
+    console.log(`  --wait 500`);
+    return;
+  }
+  
   const test = tests.test(name);
   const manager = new Manager(test, times, wait);
   manager.on('successful', (successful, duration, status) =>

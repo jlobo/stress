@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import { sleep } from "./utils.js";
 
 export default class Manager {
-    constructor(test, times = 1, wait = 50) {
+    constructor(test, times = 1, wait = 10) {
         this.test = test;
         this.times = times;
         this.wait = wait;
