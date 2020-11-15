@@ -12,10 +12,10 @@ export default {
 
 /** @param {number} index */
 function orkUrl(index) {
-    return "http://ork" + index;
+    return "http://srv-ork" + index;
 }
 
 /** @param {number} index */
 function orkUrlDev(index) {
-    return "http://localhost:500" + index;
+    return "http://172.17.0.3:3000" + index;
 }

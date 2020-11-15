@@ -28,6 +28,8 @@ spec:
           value: "true"
         - name: Settings__Features__Memory
           value: "true"
+        - name: Settings__Features__Throttling
+          value: "false"
         - name: Settings__Instance__Username
           value: "Ork-1"
         - name: Settings__Instance__SecretKey
@@ -36,7 +38,7 @@ spec:
           value: "BZJrKMczqmkPfk1ACDFP/kvyxczUFNbgwIf4SMPW0WMf0vePtGU88MW25xtujo+1oF1XODIJ7DlJigcZTDBPbAtMkH6YU2CzcO3eG9K0YCkLY8j98ahpdNzf/DBHH2NI"
         resources:
           limits:
-            memory: "1Gi"
+            memory: "512Mi"
             cpu: "1000m"
         ports:
         - name: web
