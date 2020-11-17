@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ork1-deployment
+  namespace: ork
   labels:
     app: ork1
 spec:
@@ -17,8 +18,10 @@ spec:
       tolerations:
       - key: "scope"
         operator: "Equal"
-        value: "service"
+        value: "ork"
         effect: "NoSchedule"
+      nodeSelector:
+        scope: ork
       containers:
       - name: ork
         image: tideorg/ork:dev
@@ -38,8 +41,8 @@ spec:
           value: "CBHaP68zFuCHJHMpoNatSi1Ea43nJD2aN4hzznfRaF9epxsm/Ly4U1koay26BJ2KYbUBXTwV5sG7XbJh8Fi/e3AO1S+fr9VPSm8oG2TIQZdntg7V50hkYj5pt/SsLsL3"
         resources:
           limits:
-            memory: "512Mi"
-            cpu: "1000m"
+            memory: "400Mi"
+            cpu: "500m"
         ports:
         - name: web
           containerPort: 80

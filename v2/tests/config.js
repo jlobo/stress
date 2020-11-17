@@ -12,7 +12,7 @@ export default {
 
 /** @param {number} index */
 function orkUrl(index) {
-    return "http://srv-ork" + index;
+    return `http://srv-ork${index}.ork.svc.cluster.local`;
 }
 
 /** @param {number} index */

@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: srv-ork2
+  namespace: ork
   labels:
     app: srv-ork
 spec:

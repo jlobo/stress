@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+  namespace: test
+  labels:
+    app: test
+spec:
+  replicas: 2
+  strategy:
+        type: Recreate
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      tolerations:
+      - key: "scope"
+        operator: "Equal"
+        value: "test"
+        effect: "NoSchedule"
+      nodeSelector:
+        scope: test
+      containers:
+      - name: test
+        image: tideorg/orkstress:vnext
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo hello; sleep 3;done"]
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "850m"
