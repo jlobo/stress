@@ -4,35 +4,33 @@ import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 const name = argv.name || tests.names[0];
-const parallel = argv.parallel || 1;
 const times = argv.times || 1;
-const wait = argv.wait || 0;
+const duration = argv.duration || -1;
 
 (async () => {
   if (argv.h || argv.help) {
     console.log(`Example:`);
     console.log(`  --name [${tests.names.join('|')}]`);
     console.log(`  --times 30`);
-    console.log(`  --parallel 3`);
-    console.log(`  --wait 500`);
+    console.log(`  ---duration 10`);
     return;
   }
   
   const test = tests.test(name);
-  const manager = new Manager(test, times, wait);
-  manager.on('successful', (successful, duration, status) =>
-    process.stdout.write(`\r\x1b[Kok: ${successful}: ${status} - ${duration}`));
+  const manager = duration > 0 ? Manager.duration(test, duration * 1000) : Manager.times(test, times);
 
-  manager.on('error', (errors, duration, err) => {
+  manager.on('successful', metric =>
+    process.stdout.write(`\r\x1b[KIter: ${metric.iter} Sg: ${metric.seconds} - [OK: #${metric.successful}]`));
+
+  manager.on('error', (metric, err) => {
     process.stdout.write('\r\x1b[K');
-    process.stderr.write(`err: ${errors}: ${duration}\n`);
+    process.stderr.write(`Iter: ${metric.iter} Sg: ${metric.seconds} - [ERR #${metric.errors} | ${err.name}]\n`);
   });
 
-  console.log(`running ${name} ${times} times in parallel ${parallel} more times...`);
+  const iniMsg = duration > 0 ? `for ${duration} seconds` : `${times} times`;
+  console.log(`running ${name} ${iniMsg}`);
 
   await manager.init();
-  const outputs = await Promise.all([...new Array(parallel)].map(() => manager.run()));
-  const [ok, err] = outputs.reduce(([ok, err], b) => [ok + b.successful, err + b.errors], [0, 0])
-
-  process.stdout.write(`\r\x1b[Kawesome ok: ${ok}  erros: ${err}\n`);
+  var metric = await manager.run();
+  process.stdout.write(`\r\x1b[K${metric.print()}\n`);
 })();
