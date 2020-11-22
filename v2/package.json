@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "export DEV=true && node -r esm index.js --name signup --duration 30",
+    "start": "export DEV=true && node -r esm index.js --name dauth --duration 15",
     "publish": "npm run build && docker push tideorg/orkstress:vnext",
     "build": "npm run build:prepare && docker build -t tideorg/orkstress:vnext .",
     "build:prepare": "del tmp && copyfiles -u 1 node_modules/tide-js/*.json node_modules/tide-js/src/**/**/**/** tmp"
